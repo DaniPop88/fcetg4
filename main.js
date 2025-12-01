@@ -3,7 +3,7 @@
 /* ========================================
    KONFIG
 ======================================== */
-const BACKEND_URL = "https://redepop-backend.onrender.com";
+const BACKEND_URL = "https://popn1shop.onrender.com";
 const MANIFEST_URL = window.REDEPOP_MANIFEST_URL || "./manifest.json";
 
 /* ========================================
@@ -128,8 +128,8 @@ function createIntersectionObserver() {
       }
     });
   }, { 
-    rootMargin: '200px',  // ← Increased from 50px - preload images earlier
-    threshold: 0.01       // ← Reduced threshold for earlier trigger
+    rootMargin: '50px',
+    threshold: 0.1 
   });
 }
 
@@ -174,7 +174,7 @@ function buildProductCard({ src, name, secret, isExtra, isFeatured }, index) {
   const cardClass = `product-card${isExtra ? ' extra-product' : ''}${isFeatured ? ' featured' : ''}`;
   const card = el('div', cardClass, { 'data-secret': secret });
   
-  card.style.animationDelay = `${Math.min(index * 0.05, 0.5)}s`;
+  card.style.animationDelay = `${index * 0.1}s`;
   
   if (isFeatured) {
     const badge = el('div', 'featured-badge', { text: '⭐' });
@@ -200,7 +200,8 @@ function buildProductCard({ src, name, secret, isExtra, isFeatured }, index) {
 function buildTierSection(tier, baseUrl) {
   const section = el('section', 'reward-tier', { 'data-tier': tier.id });
   
-  const tierIndex = parseInt(tier.id.split('-')[1]) || 1;
+  // Cap animation delay to max 1 second
+  const tierIndex = Math.min(parseInt(tier. id.split('-')[1]) || 1, 5);
   section.style.animationDelay = `${tierIndex * 0.2}s`;
   
   const header = el('div', 'tier-header', { text: tier.label || tier.id });
@@ -255,10 +256,12 @@ async function loadCatalog() {
       loadingOverlay.style.display = 'flex';
     }
     
-    // REMOVE the 800ms delay - just fetch directly
-    const response = await fetch(MANIFEST_URL, { cache: 'force-cache' });
+    const [response] = await Promise.all([
+      fetch(MANIFEST_URL, { cache: 'force-cache' }),
+      new Promise(resolve => setTimeout(resolve, 800))
+    ]);
     
-    if (! response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const manifest = await response.json();
     const baseUrl = (manifest.baseUrl || '').trim();

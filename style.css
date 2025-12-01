@@ -382,10 +382,9 @@ body.loading {
   border: 2px solid rgba(139, 92, 246, 0.3);
   min-height: 120px;
   position: relative;
-  opacity: 1;
-  transform: none;
-  animation: none;  /* Disable animation untuk performa */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;  /* Hanya hover effect */
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  animation: cardFadeIn 0.5s ease-out forwards;
   overflow: hidden;
 }
 
@@ -466,13 +465,12 @@ body.loading {
   background: rgba(232, 238, 255, 0.5);
   border: 1px solid rgba(139, 92, 246, 0.2);
   transition: all 0.3s ease;
-  opacity: 0.3;  /* Show placeholder immediately */
-  background: #f0f0f0;
+  opacity: 0;
 }
 
 .product-img.loaded {
   opacity: 1;
-  transition: opacity 0.3s ease;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
 }
 
 .product-img.loading {
