@@ -200,9 +200,8 @@ function buildProductCard({ src, name, secret, isExtra, isFeatured }, index) {
 function buildTierSection(tier, baseUrl) {
   const section = el('section', 'reward-tier', { 'data-tier': tier.id });
   
-  // Cap animation delay to max 1 second
-  const tierIndex = Math.min(parseInt(tier. id.split('-')[1]) || 1, 5);
-  section.style.animationDelay = `${tierIndex * 0.2}s`;
+  // Remove animation delay completely for instant loading
+  section.style.animationDelay = '0.2s';
   
   const header = el('div', 'tier-header', { text: tier.label || tier.id });
   section.appendChild(header);
