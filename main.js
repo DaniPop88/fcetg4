@@ -3,7 +3,7 @@
 /* ========================================
    KONFIG
 ======================================== */
-const BACKEND_URL = "https://popn1shop.onrender.com";
+const BACKEND_URL = "https://redepop-backend.onrender.com";
 const MANIFEST_URL = window.REDEPOP_MANIFEST_URL || "./manifest.json";
 
 /* ========================================
