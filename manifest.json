@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "baseUrl": "https://cdn.jsdelivr.net/gh/popindi/vaiiiiiiiiiiiiiiiiiiiiiiii@latest/images/"
+  "baseUrl": "./images/"
   "tiers": [
     {
       "id": "VAI-1000",
