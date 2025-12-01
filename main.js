@@ -118,7 +118,7 @@ function createIntersectionObserver() {
         const img = entry.target;
         if (img.dataset.src) {
           img.classList.add('loading');
-          img. src = img.dataset.src;
+          img.src = img.dataset.src;
           img.onload = () => {
             img.classList.remove('loading');
             img.classList.add('loaded');
@@ -252,7 +252,7 @@ async function loadCatalog() {
     setRandomColorScheme();
     
     if (loadingOverlay) {
-      loadingOverlay. style.display = 'flex';
+      loadingOverlay.style.display = 'flex';
     }
     
     // REMOVE the 800ms delay - just fetch directly
