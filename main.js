@@ -118,7 +118,7 @@ function createIntersectionObserver() {
         const img = entry.target;
         if (img.dataset.src) {
           img.classList.add('loading');
-          img.src = img.dataset.src;
+          img. src = img.dataset.src;
           img.onload = () => {
             img.classList.remove('loading');
             img.classList.add('loaded');
@@ -128,8 +128,8 @@ function createIntersectionObserver() {
       }
     });
   }, { 
-    rootMargin: '50px',
-    threshold: 0.1 
+    rootMargin: '200px',  // ← Increased from 50px - preload images earlier
+    threshold: 0.01       // ← Reduced threshold for earlier trigger
   });
 }
 
@@ -174,7 +174,7 @@ function buildProductCard({ src, name, secret, isExtra, isFeatured }, index) {
   const cardClass = `product-card${isExtra ? ' extra-product' : ''}${isFeatured ? ' featured' : ''}`;
   const card = el('div', cardClass, { 'data-secret': secret });
   
-  card.style.animationDelay = `${index * 0.1}s`;
+  card.style.animationDelay = `${Math.min(index * 0.05, 0.5)}s`;
   
   if (isFeatured) {
     const badge = el('div', 'featured-badge', { text: '⭐' });
@@ -252,15 +252,13 @@ async function loadCatalog() {
     setRandomColorScheme();
     
     if (loadingOverlay) {
-      loadingOverlay.style.display = 'flex';
+      loadingOverlay. style.display = 'flex';
     }
     
-    const [response] = await Promise.all([
-      fetch(MANIFEST_URL, { cache: 'force-cache' }),
-      new Promise(resolve => setTimeout(resolve, 800))
-    ]);
+    // REMOVE the 800ms delay - just fetch directly
+    const response = await fetch(MANIFEST_URL, { cache: 'force-cache' });
     
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (! response.ok) throw new Error(`HTTP ${response.status}`);
     
     const manifest = await response.json();
     const baseUrl = (manifest.baseUrl || '').trim();
