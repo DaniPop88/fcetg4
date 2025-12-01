@@ -388,7 +388,7 @@ function applyGameIdRules() {
   
   const platform = platformSelect.value;
   
-  if (platform === 'POPN1') {
+  if (platform === 'POPVAI') {
     gameIdInput.placeholder = 'Ex. 123456789012 (12 dígitos)';
     gameIdInput.maxLength = 12;
   } else {
@@ -403,7 +403,7 @@ function validateGameId() {
   const platform = platformSelect.value;
   const gameId = gameIdInput.value.trim();
   
-  if (platform === 'POPN1') {
+  if (platform === 'POPVAI') {
     return /^\d{12}$/.test(gameId);
   }
   
